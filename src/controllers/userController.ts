@@ -6,17 +6,21 @@ import User, { IUser } from "../models/userModal";
 const secretKey = "your-secret-key"; // Replace with your secret key
 const expiresIn = "1h"; // Token expiration time
 
+
 class UserController {
   static async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body;
-
       // Find the user by email
       const user: IUser | null = await User.findOne({ email });
 
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
+
+
+
+
 
       // Compare the provided password with the hashed password in the database
       const isPasswordValid = await bcrypt.compare(password, user.password);

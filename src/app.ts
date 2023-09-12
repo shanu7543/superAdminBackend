@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // MongoDB connection
 const mongoUrl =
-  "mongodb+srv://amitsarraf:S%40m12345@flat-service.qartbfp.mongodb.net/vidychat?authSource=admin&replicaSet=atlas-73o9j1-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true";
+  "mongodb+srv://amitsarraf:S%40m12345@flat-service.qartbfp.mongodb.net/superAdmin?authSource=admin&replicaSet=atlas-73o9j1-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true";
 
   mongoose.connect(mongoUrl as string);
   const db = mongoose.connection;
