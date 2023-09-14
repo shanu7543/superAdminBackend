@@ -17,17 +17,13 @@ class UserController {
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
-
-
-
-
-
       // Compare the provided password with the hashed password in the database
       const isPasswordValid = await bcrypt.compare(password, user.password);
 
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid password" });
       }
+
 
       // Generate a JWT token
       const token = jwt.sign({ userId: user._id }, secretKey, { expiresIn });
@@ -37,6 +33,39 @@ class UserController {
       console.error("Login error:", error);
       res.status(500).json({ message: "Internal server error" });
     }
+  }
+}
+
+// export const getNoOfUser = async()=>{
+//   try {
+//     const UserList =  await User.find().count()
+//     return UserList;
+
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+
+// Create a function to get the count of total users
+async function getNoOfUser() {
+  try {
+    const userCount = await User.countDocuments();
+    return userCount;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+// Define a route to get the count of total users
+export const getUser = async (req:any, res:any) => {
+  try {
+    const userCount = await getNoOfUser();
+    res.json({ count: userCount });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
   }
 }
 
